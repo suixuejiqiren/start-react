@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="app"></div>
+<div id="root"></div>
+</body>
+<script src="./babel.min.js"></script>
+<script src="./react.development.js"></script>
+<script src="./prop-types.js"></script>
+<script src="./react-dom.development.js"></script>
+<script type="text/jsx">
+    // let str = "一段内容"
+    //
+    // let Box = () => (
+    //     <h1>
+    //         我是内容{str}
+    //     </h1>
+    // )
+    //
+    // class Container extends React.Component {
+    //     render() {
+    //         return (
+    //             <div>
+    //                 <h2>我是第二个标题</h2>
+    //                 <Box></Box>
+    //                 <Box></Box>
+    //                 <Box></Box>
+    //                 <Box></Box>
+    //             </div>
+    //         )
+    //     }
+    // }
+    //
+    // ReactDOM.render(<Box></Box>,document.querySelector("#app"))
+    // ReactDOM.render(<Container></Container>,document.querySelector("#root"))
+
+    class Button extends React.Component{
+        constructor(props) {
+            super(props)
+        }
+        render() {
+            return (
+                <button className="my-btn">{this.props.children}</button>
+            )
+        }
+        componentDidMount() {
+            console.log(this.props.children);
+        }
+    }
+    // 定义一个类型检查:
+    // 1. 引入prop-types的包
+    // 2. 类名.propTypes = {
+    //
+    // }
+    class App extends React.Component{
+        render() {
+            return (
+                <div>
+                    <Button>第一个阿牛</Button>
+                    <Button>第一个按钮</Button>
+                </div>
+            )
+        }
+    }
+
+
+    Button.propTypes = {
+        label: PropTypes.string
+    }
+
+    Button.defaultProps = {
+        label: "基础按钮"
+    }
+
+
+
+    let str = "我是按钮";
+    let num = 1234
+
+
+
+    ReactDOM.render(<App></App>,document.querySelector("#app"))
+</script>
+
+</html>

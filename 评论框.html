@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .text-area {
+            width: 502px;
+            overflow: hidden;
+        }
+        textarea {
+            display: block;
+            width: 500px;
+            min-height: 100px;
+        }
+        button {
+            margin-top: 20px;
+            float: right;
+        }
+        li {
+            width: 502px;
+            border: 1px solid #000;
+            line-height: 50px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+    <script src="./babel.min.js"></script>
+    <script src="./react.development.js"></script>
+    <script src="./react-dom.development.js"></script>
+    <script type="text/jsx">
+    //文本框部分
+        class TextArea extends React.Component{
+            handleClick=()=>{
+                let title = this.area.value;
+                let arr = this.props.arr;
+                arr.push({title})
+                this.props.arrChange(arr)
+                this.area.value = "";
+            };
+            render(){
+                return( <div className="text-area">
+                    <textarea ref={area=>this.area=area}></textarea>
+                    <button onClick={this.handleClick}>提交</button>
+                </div>
+            )
+                   
+            }
+        }
+    //评论显示部分
+
+        class List extends React.Component{
+            render(){
+                return(
+                    <ul>
+                        {this.props.arr.map((item,index)=>(
+                            <li key={index}>{item.title}</li>)
+                        )}
+                    </ul>
+                )
+            }
+        }
+    
+
+    //父元素部分
+    class Layout extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state={
+                arr:[
+                    {
+                        title:"评论，一"
+                    }
+                ]
+            }
+        }
+
+        arrChange = (newArr) =>{
+            this.setState({
+                arr:newArr
+            })
+        };
+
+        render(){
+            return(
+                <div>
+                    <TextArea arr={this.state.arr} arrChange={this.arrChange}></TextArea>
+                    <List arr={this.state.arr}></List>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Layout></Layout>,document.querySelector("#app"))
+    </script>
+
+</html>

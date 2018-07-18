@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="./babel.min.js"></script>
+<script src="./react.development.js"></script>
+<script src="./react-dom.development.js"></script>
+<script type="text/jsx">
+    class Clock extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                nowTime: new Date()
+            }
+        }
+        render() {
+            return (
+                <div>
+                    <h1>现在的时间是:</h1>
+                    {this.state.nowTime.toLocaleTimeString()}
+                </div>
+            )
+        }
+
+        componentDidMount() {
+            this.timer =  setInterval(() => {
+                console.log("定时器正在running");
+                this.setState({
+                    nowTime: new Date()
+                })
+            },1000)
+        }
+        componentWillUnmount() {
+            clearInterval(this.timer);
+        }
+
+    }
+
+    class Layout extends React.Component {
+        constructor(props) {
+            super(props)
+            this.state = {
+                isShowClock: true
+            }
+        }
+
+        handleClick= () => {
+            ReactDOM.unmountComponentAtNode(document.querySelector("#app"));
+        };
+        render() {
+
+            let child = this.state.isShowClock?<Clock> </Clock>: null;
+            return (
+                <div>
+                    {child}
+                    <button onClick={this.handleClick}>移除</button>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Layout/>, document.querySelector("#app"))
+
+
+
+
+
+    // document.createElement("li").appendChild(document.body)
+    // 效率高的真正原因：
+    //
+    // 1. 自身有自己的DOM树，或者说是DOM节点（虚拟的DOM）。
+    // 2. 当数据变化的时候先去变化虚拟的DOM，
+    // 3. 与真实的DOM元素相比较，再去渲染变化的部分。
+
+    //
+    // 检测到需要插入1000次。
+    // 真正去绘制DOM层的次数1次
+
+</script>
+
+</html>

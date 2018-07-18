@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 200px;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid #000;
+        }
+        .top {
+            background:#ff6700;
+        }
+        .middle{
+            background: pink;
+        }
+        .bottom{
+            background: deepskyblue;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="./babel.min.js"></script>
+<script src="./react.development.js"></script>
+<script src="./react-dom.development.js"></script>
+<script type="text/jsx">
+    class Layout extends React.Component {
+        render() {
+            return(
+                <div className="container">
+                    <div className="top">{this.props.top}</div>
+                    <div className="middle">{this.props.middle}</div>
+                    <div className="bottom">{this.props.bottom}</div>
+                </div>
+
+            )
+        }
+    }
+
+    class Top extends React.Component{
+        render(){
+            return(
+                <div>
+                    <h1>我是头部</h1>
+                    头部内容
+                </div>
+            )
+        }
+    }
+
+    class Middle extends React.Component{
+        render(){
+            return(
+                <div>
+                    <h1>我是中间</h1>
+                    中间内容
+                </div>
+            )
+        }
+    }
+
+
+    class Bottom extends React.Component{
+        render(){
+            return(
+                <div>
+                    <h1>我是底部</h1>
+                    底部内容
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Layout top={<Top/>} middle={<Middle/>} bottom={<Bottom/>} />, document.querySelector("#app"))
+</script>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+            overflow: hidden;
+            visibility: hidden;
+        }
+        .text{
+            color: white;
+            float:left;
+        }
+        .input{
+            float: right;
+            border-radius: 4px;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 8px;
+            margin-top: 8px;
+        }
+        .header{
+            background: black;
+            padding:10px 100px;
+        }
+        .num{
+            float: right;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background: #ccc;
+            color: #fff;
+            text-align: center;
+        }
+        .now h2{
+            float:left;
+        }
+        .now{
+            padding:0 100px;
+        }
+        .over h2{
+            float:left;
+        }
+        .over{
+            padding:0 100px;
+        }
+
+        .ing-list li{
+            line-height: 40px;
+            border: 1px solid #000;
+            list-style: none;
+        }
+        .ing-list {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="./babel.min.js"></script>
+<script src="./react.development.js"></script>
+<script src="./react-dom.development.js"></script>
+<script type="text/jsx">
+    class Header extends React.Component{
+        commit=(event)=>{
+            if(event.keyCode===13){
+                let title=event.target.value;
+                let arr= this.props.arr;
+                arr.push({
+                    title,
+                    isDone:false
+                });
+                event.target.value="";
+                this.props.func(arr);
+            }
+        };
+        render(){
+            return(
+                <div className="header clearfix">
+                    <h1 className="text">TODoList</h1>
+                    <input type="text" className="input" placeholder="输入你的待办事项"
+                           onKeyUp={this.commit} />
+                </div>
+            )
+        }
+    }
+
+
+    class Now extends React.Component{
+        handleChange=(event)=>{
+            let arr =this.props.arr;
+            arr[event.target.value].isDone=event.target.checked;
+            this.props.func(arr);
+        };
+
+        render(){
+            let number=this.props.arr.filter(item=> !item.isDone);
+            let arr=this.props.arr;
+            return(
+                <div className="clearfix now">
+                    <h2>正在进行</h2>
+                    <div className="num"> {number.length} </div>
+                    <ul className="ing-list">
+                        {arr.map((item,index)=>{
+                            if(!item.isDone){
+                                return(
+                                    <li key={index}>
+                                        <input type="checkbox" value={index}
+                                               onChange={this.handleChange} />{item.title}
+                                    </li>
+                                )
+                            }
+                        })
+                        }
+                    </ul>
+                </div>
+            )
+        }
+    }
+
+    class Over extends React.Component{
+        handleChange=(event)=>{
+            let arr =this.props.arr;
+            arr[event.target.value].isDone=event.target.checked;
+            this.props.func(arr);
+        };
+        render(){
+            let number=this.props.arr.filter(item=> item.isDone);
+            let arr=this.props.arr;
+            return(
+
+                <div className="clearfix over">
+                    <h2>已完成</h2>
+                    <div className="num">{number.length}</div>
+                    <ul className="ing-list">
+                        {arr.map((item,index)=>{
+                            if(item.isDone){
+                                return(
+                                    <li key={index}>
+                                        <input type="checkbox" value={index}
+                                               onChange={this.handleChange} checked="item.isDone" />{item.title}
+                                    </li>
+                                )
+                            }
+                        })
+                        }
+                    </ul>
+                </div>
+            )
+        }
+    }
+    class Layout extends React.Component{
+        constructor(props){
+            super(props);
+            this.state={
+                arr:[
+                    {
+                        title:"吃饭",
+                        isDone:false
+                    },
+                    {
+                        title:"睡觉",
+                        isDone:false
+                    },
+                    { title:"打游戏",
+                        isDone:false}
+                ]
+            }
+        }
+        changeArr=(newArr)=>{
+            this.setState({
+                arr:newArr
+            })
+    }
+        render(){
+            return(
+                <div>
+                    <Header arr={this.state.arr} func={this.changeArr}></Header>
+                    <Now arr={this.state.arr} func={this.changeArr}></Now>
+                    <Over arr={this.state.arr} func={this.changeArr}></Over>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Layout></Layout>,document.querySelector("#app"))
+</script>
+</html>

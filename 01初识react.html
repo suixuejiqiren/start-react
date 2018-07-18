@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="root"></div>
+</body>
+<script src="./static/react.development.js"></script>
+<script src="./static/react-dom.development.js"></script>
+<script src="./static/babel.min.js"></script>
+<script type="text/jsx">
+    class Hello extends React.Component{
+        render() {
+            return (
+                <h1>
+                    hello world!
+                </h1>
+            )
+        }
+    }
+
+    let HelloWorld = () => {
+        return (
+            <h1>
+                hello 第二个组件
+            </h1>
+        )
+    }
+    ReactDOM.render(<Hello/>, document.querySelector("#app"));
+    ReactDOM.render(<HelloWorld></HelloWorld>, document.querySelector("#root"));
+
+
+
+</script>
+
+<!--react   渲染一个部分分几步?-->
+
+<!--1. 定义一个组件-->
+
+<!--2. 利用ReactDOM 去渲染组件。 -->
+
+</html>

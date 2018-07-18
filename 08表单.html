@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="./static/react.development.js"></script>
+<script src="./static/react-dom.development.js"></script>
+<script src="./static/babel.min.js"></script>
+<script type="text/jsx">
+    class Layout extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                username: "",
+                password: ""
+            }
+        }
+        handleSubmit = (event) => {
+            event.preventDefault();
+        }
+
+        nameChange = (event) => {
+            this.setState({
+                username: event.target.value
+            })
+        }
+
+        pwdChange = () => {
+            this.setState({
+                password: this.pwd.value
+            })
+        }
+        render() {
+            return (
+                <form action="http://www.baidu.com" className="container" onSubmit={this.handleSubmit}>
+                    <h1>您的用户名是: {this.state.username}</h1>
+                    <h2>您的密码是:{this.state.password}</h2>
+                    用户名:<input type="text" value={this.state.username} ref={username => this.username = username} onChange={this.nameChange} />
+                    <br/>
+                    密码： <input type="password" onChange={this.pwdChange} ref={pwd => this.pwd = pwd} />
+                    <br/>
+                    <button type="submit">
+                        提交
+                    </button>
+                </form>
+            )
+        }
+    }
+
+    ReactDOM.render(<Layout></Layout>,document.querySelector("#app"))
+</script>
+
+</html>

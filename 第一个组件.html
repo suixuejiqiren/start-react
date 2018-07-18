@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="./babel.min.js"></script>
+<script src="./react.development.js"></script>
+<script src="./prop-types.js"></script>
+<script src="./react-dom.development.js"></script>
+<script type="text/jsx">
+    class Button extends React.Component {
+        constructor(props){
+            super(props)
+        }
+        render() {
+            return(
+                <button className="my-btn">{this.props.children}</button>
+            )
+        }
+        componentDidMount(){
+            console.log(this.props)
+        }
+    }
+    class  Layout extends React.Component{
+        render(){
+            return(
+                <div>
+                    <Button>123</Button>
+                    <Button>第二个按钮</Button>
+                </div>
+            )
+        }
+    }
+    Button.propTypes = {
+        label: PropTypes.string
+    }
+    ReactDOM.render(<Layout></Layout>, document.querySelector("#app"))
+</script>
+</html>

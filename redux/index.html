@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>
+    数字：
+</h1>
+<span id="span"></span>
+<br>
+<button id="add">+</button>
+<button id="reduce">-</button>
+</body>
+<script src="redux.min.js"></script>
+<script>
+//脱离react,redux的单独使用：
+    let add=document.querySelector("#add");
+    let reduce=document.querySelector("#reduce");
+    let span=document.querySelector("#span");
+
+    function reducers (state,action) {
+        if (state==undefined){
+            state=0    //赋初值
+        }
+        if (action.type=='ADD'){
+            return state+1
+        }
+        if (action.type=='REDUCE'){
+            return state-1
+        }
+
+        return state
+    }
+
+    let store=Redux.createStore(reducers);
+
+function render() {
+    console.log(store.getState());
+    span.innerText = store.getState()
+}
+render();
+
+store.subscribe(render);
+
+add.onclick=()=>{
+    store.dispatch({type:'ADD'})
+};
+reduce.onclick=()=>{
+    store.dispatch({type:'REDUCE'})
+}
+</script>
+</html>

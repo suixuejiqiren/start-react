@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            border: 1px solid #000;
+            border-radius: 4px;
+            width: 600px;
+            height: 700px;
+            margin: 50px auto 0;
+        }
+
+        .my-header {
+            background: pink;
+            height: 100px;
+        }
+        .content {
+            overflow: hidden;
+        }
+        .content-left {
+            float: left;
+            background: yellow;
+            height: 200px;
+            width: 200px;
+        }
+        .content-middle {
+            float: left;
+            background: skyblue;
+            width: 300px;
+            height:200px;
+        }
+        .content-right {
+            float: right;
+            background: red;
+            width: 100px;
+            height: 200px;
+        }
+
+        .my-footer {
+            height: 400px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<div id="root"></div>
+</body>
+<script src="./static/react.development.js"></script>
+<script src="./static/react-dom.development.js"></script>
+<script src="./static/babel.min.js"></script>
+<!--<script type="text/jsx">-->
+    <!--let str = "我是内容"-->
+
+    <!--class Header extends React.Component {-->
+        <!--render() {-->
+            <!--return (-->
+                <!--<header className="my-header">-->
+                    <!--我是头部的内容-->
+                    <!--<div>-->
+                        <!--{str}-->
+                    <!--</div>-->
+                    <!--<input type="text" />-->
+                <!--</header>-->
+            <!--)-->
+        <!--}-->
+    <!--}-->
+
+    <!--class Content extends React.Component {-->
+        <!--render() {-->
+            <!--return (-->
+                <!--<div className="content">-->
+                    <!--<div className="content-left">左边部分的内容</div>-->
+                    <!--<div className="content-middle">中间部分的内容</div>-->
+                    <!--<div className="content-right">右边的内容</div>-->
+                <!--</div>-->
+            <!--)-->
+        <!--}-->
+    <!--}-->
+
+    <!--class Footer extends React.Component {-->
+        <!--render() {-->
+            <!--return (-->
+                <!--<div className="my-footer">-->
+                    <!--<h2>我是页脚</h2>-->
+                <!--</div>-->
+            <!--)-->
+        <!--}-->
+    <!--}-->
+
+
+    <!--class Layout extends React.Component{-->
+        <!--render() {-->
+            <!--return (-->
+                <!--<div className="container">-->
+                    <!--<Header></Header>-->
+                    <!--<Content></Content>-->
+                    <!--<Footer></Footer>-->
+                <!--</div>-->
+            <!--)-->
+        <!--}-->
+    <!--}-->
+
+    <!--ReactDOM.render(<Layout/>, document.querySelector("#app"));-->
+
+<!--</script>-->
+<script>
+    class Box extends React.Component {
+        render() {
+            return React.createElement("h1",{title: "我是主要标题",name: "我"},[
+                "我是标题内的内容",
+                React.createElement("div",{className: "container",key: "first"}, "我是DIV")
+            ])
+        }
+        componentDidMount() {
+            console.log(Box);
+        }
+    }
+
+    ReactDOM.render(
+        React.createElement(Box),
+        document.querySelector("#app")
+    )
+
+</script>
+</html>
